@@ -1,0 +1,110 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {"url": "https://raw.githubusercontent.com/kzho0015/FIT3179/main/2023Happiness.csv"},
+    "title": "Factors Contributing to a Country's Happiness Index",
+    "params": [
+      {
+        "name": "Continent_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "North America",
+            "South America",
+            "Europe",
+            "Africa",
+            "Asia",
+            "Oceania"
+          ],
+          "labels": [
+            "Show all",
+            "North America",
+            "South America",
+            "Europe",
+            "Africa",
+            "Asia",
+            "Oceania"
+          ],
+          "name": "Continent Selection: "
+        }
+      }
+    ],
+    "transform": [
+        {
+        "filter": "Continent_selection == null || datum.Region == Continent_selection"
+      },
+      {
+        "fold": [
+          "Standarised Log GDP per capita",
+          "Standarised Social support",
+          "Standarised Healthy life expectancy",
+          "Standarised Freedom to make life choices",
+          "Standarised Generosity",
+          "Standarised Perceptions of corruption",
+          "Standarised Dystopia + residual"
+        ],
+        "as": [
+          "key",
+          "value"
+        ]
+      }
+    ],
+    "layer": [
+      {
+        "mark": {"type": "bar"},
+        "encoding": {
+          "x": {
+            "field": "Country name",
+            "type": "nominal",
+            "title": "Countries"
+          },
+          "y": {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Score"
+          },
+          "color": {
+            "type": "nominal",
+            "field": "key",
+            "legend": {
+              "labelExpr": "{'Standarised Log GDP per capita': 'Log GDP per Capita', 'Standarised Social support': 'Social Support','Standarised Healthy life expectancy': 'Healthy Life Expectancy','Standarised Freedom to make life choices': 'Freedom to Make Life Choices','Standarised Generosity': 'Generosity', 'Standarised Perceptions of corruption': 'Perceptions of Corruption', 'Standarised Dystopia + residual': 'Dystopia and Residual'}[datum.label]"},
+            "title": "Factors"
+          },
+          "tooltip": [
+            {
+              "field": "Region",
+              "type": "nominal",
+              "title": "Region:"
+            },
+            {
+              "field": "Country name",
+              "type": "nominal",
+              "title": "Country:"
+            },
+            {
+              "field": "key",
+              "type": "nominal",
+              "title": "Factor:"
+            },
+            {
+              "field": "value",
+              "type": "quantitative",
+              "title": "Score:"
+            }
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "baseline": "bottom"},
+        "encoding": {
+          "x": {"field": "Country name", "type": "nominal"},
+          "y": {"field": "Happiness_Index", "type": "quantitative"},
+          "text": {"field": "Happiness_Index", "type": "quantitative", "format": ".1f"}
+        }
+      }
+    ]
+  }
+  
