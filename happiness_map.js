@@ -5,9 +5,9 @@ var opt = {
     "mode": "vega-lite"
   };
 
-vegaEmbed("#world_map", vg_1, opt).then(function(result) { 
-    //AccesstheVegaviewinstance (https://vega.github.io/vega/docs/api/view/)asresult.view 
-}).catch(console.error);
+// vegaEmbed("#world_map", vg_1, opt).then(function(result) { 
+//     //AccesstheVegaviewinstance (https://vega.github.io/vega/docs/api/view/)asresult.view 
+// }).catch(console.error);
 
 vegaEmbed("#stacked_bar", vg_2, opt).then(function(result) { 
   //AccesstheVegaviewinstance (https://vega.github.io/vega/docs/api/view/)asresult.view 
